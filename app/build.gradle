@@ -27,6 +27,10 @@ android {
 
         buildConfigField 'String', 'BASE_URL',
                 quoted(getProperty("$projectDir/../../../services/animals.properties", 'base_url'))
+        buildConfigField 'String', 'API_KEY',
+                quoted(getProperty("$projectDir/../../../services/animals.properties", 'api_key'))
+        buildConfigField "String", "CONTENT_FORMAT", quoted(
+                getProperty("$projectDir/../../../services/animals.properties", 'content_format'))
     }
 
     buildTypes {
@@ -60,6 +64,9 @@ dependencies {
 
     // Gson (JSON parser) library
     implementation 'com.google.code.gson:gson:2.8.8'
+
+    // Picasso library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Testing libraries
     testImplementation 'junit:junit:4.13.2'
