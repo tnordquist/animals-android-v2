@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.animalsandroidv2.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle.Event;
@@ -45,24 +46,31 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
   private void load() {
+    throwable.postValue(null);
     pending.add(
         repository
             .getAll()
             .subscribe(
                 animals::postValue,
-                throwable::postValue
+                this::postThrowable
             )
     );
   }
 
   public void loadAnimal(UUID id) {
+    throwable.postValue(null);
     pending.add(
         repository.getAnimal(id)
             .subscribe(
                 animal::postValue,
-                throwable::postValue
+                this::postThrowable
             )
     );
+  }
+
+  private void postThrowable(Throwable throwable) {
+    Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
+    this.throwable.postValue(throwable);
   }
 
   @OnLifecycleEvent(Event.ON_STOP)

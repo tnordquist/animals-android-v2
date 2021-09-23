@@ -62,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
     viewModel.getThrowable().observe(this, new Observer<Throwable>() {
       @Override
       public void onChanged(Throwable throwable) {
+        if(throwable != null){
         Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
-        //noinspection ConstantConditions
-        Snackbar
+          //noinspection ConstantConditions
+          Snackbar
             .make(binding.getRoot(), throwable.getMessage(),
                 BaseTransientBottomBar.LENGTH_INDEFINITE)
             .show();
+        }
       }
     });
   }
