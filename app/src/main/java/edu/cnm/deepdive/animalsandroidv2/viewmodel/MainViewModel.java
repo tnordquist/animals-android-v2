@@ -12,10 +12,12 @@ import edu.cnm.deepdive.animalsandroidv2.model.Animal;
 import edu.cnm.deepdive.animalsandroidv2.service.AnimalRepository;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
+import java.util.UUID;
 
 public class MainViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private final AnimalRepository repository;
+  private final MutableLiveData<Animal> animal;
   private final MutableLiveData<List<Animal>> animals;
   private final MutableLiveData<Throwable> throwable;
   private final CompositeDisposable pending;
@@ -23,10 +25,15 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   public MainViewModel(@NonNull Application application) {
     super(application);
     repository = new AnimalRepository(application);
+    animal = new MutableLiveData<>();
     animals = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
     pending = new CompositeDisposable();
     load();
+  }
+
+  public LiveData<Animal> getAnimal() {
+    return animal;
   }
 
   public LiveData<List<Animal>> getAnimals() {
@@ -43,6 +50,16 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
             .getAll()
             .subscribe(
                 animals::postValue,
+                throwable::postValue
+            )
+    );
+  }
+
+  public void loadAnimal(UUID id) {
+    pending.add(
+        repository.getAnimal(id)
+            .subscribe(
+                animal::postValue,
                 throwable::postValue
             )
     );

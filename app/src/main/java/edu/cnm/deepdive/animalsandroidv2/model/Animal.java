@@ -3,8 +3,12 @@ package edu.cnm.deepdive.animalsandroidv2.model;
 import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.UUID;
 
 public class Animal {
+
+  @Expose
+  private UUID id;
 
   @Expose
   private String title;
@@ -12,6 +16,14 @@ public class Animal {
   @Expose
   @SerializedName("href")
   private String imageUrl;
+
+  public UUID getId() {
+    return id;
+  }
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
   public String getTitle() {
     return title;
