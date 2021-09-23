@@ -59,17 +59,13 @@ public class MainActivity extends AppCompatActivity {
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
       binding.animalSelector.setAdapter(adapter);
     });
-    viewModel.getThrowable().observe(this, new Observer<Throwable>() {
-      @Override
-      public void onChanged(Throwable throwable) {
-        if(throwable != null){
-        Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
-          //noinspection ConstantConditions
-          Snackbar
-            .make(binding.getRoot(), throwable.getMessage(),
-                BaseTransientBottomBar.LENGTH_INDEFINITE)
-            .show();
-        }
+    viewModel.getThrowable().observe(this, throwable -> {
+      if(throwable != null){
+        //noinspection ConstantConditions
+        Snackbar
+          .make(binding.getRoot(), throwable.getMessage(),
+              BaseTransientBottomBar.LENGTH_INDEFINITE)
+          .show();
       }
     });
   }
