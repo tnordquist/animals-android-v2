@@ -42,7 +42,7 @@ import retrofit2.http.Path;
           .addInterceptor(interceptor)
           .build();
       Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(gson))
           .client(client)
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

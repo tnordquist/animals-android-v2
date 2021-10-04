@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "edu.cnm.deepdive.animalsandroidv2"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -26,9 +26,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'BASE_URL',
-                quoted(getProperty("$projectDir/../../../services/animals.properties", 'base_url'))
+                quoted(getProperty("$projectDir/../local.properties", 'base_url'))
         buildConfigField "String", "CONTENT_FORMAT", quoted(
-                getProperty("$projectDir/../../../services/animals.properties", 'content_format'))
+                getProperty("$projectDir/../local.properties", 'content_format'))
     }
 
     buildTypes {
