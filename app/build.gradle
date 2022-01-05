@@ -27,8 +27,8 @@ android {
 
         buildConfigField 'String', 'BASE_URL',
                 quoted(getProperty("$projectDir/local.properties", 'base_url'))
-        buildConfigField "String", "CONTENT_FORMAT", quoted(
-                getProperty("$projectDir/local.properties", 'content_format'))
+        buildConfigField "String", "CONTENT_FORMAT",
+                quoted(getProperty("$projectDir/local.properties", 'content_format'))
     }
 
     //noinspection GroovyAssignabilityCheck
@@ -50,24 +50,17 @@ dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation 'androidx.core:core:1.7.0'
-    implementation 'androidx.media:media:1.4.3'
-    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
-    implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.fragment:fragment:1.4.0'
 
     // Basic Android UI components
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Lifecycle components
     def lifecycleVersion = '2.4.0'
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycleVersion"
-    //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion"
-    //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
 
     // Material Design components
@@ -78,7 +71,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
     // ReactiveX libraries
