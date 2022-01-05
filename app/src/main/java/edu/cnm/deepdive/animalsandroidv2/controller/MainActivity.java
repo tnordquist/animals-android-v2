@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,7 +16,6 @@ import edu.cnm.deepdive.animalsandroidv2.R;
 import edu.cnm.deepdive.animalsandroidv2.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.animalsandroidv2.model.Animal;
 import edu.cnm.deepdive.animalsandroidv2.viewmodel.MainViewModel;
-import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
       binding.animalSelector.setAdapter(adapter);
     });
     viewModel.getThrowable().observe(this, throwable -> {
-      if(throwable != null){
+      if (throwable != null) {
         //noinspection ConstantConditions
         Snackbar
             .make(binding.getRoot(), throwable.getMessage(),
@@ -55,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
         UUID animalId = animal.getId();
         viewModel.loadAnimal(animalId);
         viewModel.getAnimal().observe(MainActivity.this, (a) -> {
-          System.out.println(a.getImageUrl());
-        Picasso.get().load(String.format(BuildConfig.CONTENT_FORMAT, a.getImageUrl()))
-            .into(binding.image);
+          Log.d(getClass().getSimpleName(), a.getImageUrl());
+          Picasso
+              .get()
+              .load(String.format(BuildConfig.CONTENT_FORMAT, a.getImageUrl()))
+              .into(binding.image);
         });
       }
 

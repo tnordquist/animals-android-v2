@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Animals Android V2</string>
+  <string name="image_description_placeholder">Animal image</string>
 </resources>

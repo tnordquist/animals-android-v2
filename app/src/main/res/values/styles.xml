@@ -2,6 +2,10 @@
 <resources>
 
   <style name="AnimalSpinner" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
-    <item name="android:textColor">?android:attr/colorAccent</item>
+    <item name="android:textAppearance">?attr/textAppearanceLargePopupMenu</item>
+    <item name="android:textColor">?attr/colorAccent</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:ellipsize">marquee</item>
   </style>
+
 </resources>
