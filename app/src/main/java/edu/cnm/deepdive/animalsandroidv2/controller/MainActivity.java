@@ -28,8 +28,26 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-    setupViewModel(binding);
+//    setupViewModel(binding);
     setContentView(binding.getRoot());
+    viewModel = new ViewModelProvider(this)
+        .get(MainViewModel.class);
+    getLifecycle().addObserver(viewModel);
+    viewModel.getAnimals().observe(this, (animals) -> {
+      ArrayAdapter<Animal> adapter = new ArrayAdapter<>(MainActivity.this,
+          R.layout.item_animal_spinner, animals);
+      adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+      binding.animalSelector.setAdapter(adapter);
+    });
+    viewModel.getThrowable().observe(this, throwable -> {
+      if(throwable != null){
+        //noinspection ConstantConditions
+        Snackbar
+            .make(binding.getRoot(), throwable.getMessage(),
+                BaseTransientBottomBar.LENGTH_INDEFINITE)
+            .show();
+      }
+    });
     binding.animalSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -49,25 +67,25 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void setupViewModel(ActivityMainBinding binding) {
-    viewModel = new ViewModelProvider(this)
-        .get(MainViewModel.class);
-    getLifecycle().addObserver(viewModel);
-    viewModel.getAnimals().observe(this, (animals) -> {
-      ArrayAdapter<Animal> adapter = new ArrayAdapter<>(MainActivity.this,
-          R.layout.item_animal_spinner, animals);
-      adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-      binding.animalSelector.setAdapter(adapter);
-    });
-    viewModel.getThrowable().observe(this, throwable -> {
-      if(throwable != null){
-        //noinspection ConstantConditions
-        Snackbar
-          .make(binding.getRoot(), throwable.getMessage(),
-              BaseTransientBottomBar.LENGTH_INDEFINITE)
-          .show();
-      }
-    });
-  }
+//  private void setupViewModel(ActivityMainBinding binding) {
+//    viewModel = new ViewModelProvider(this)
+//        .get(MainViewModel.class);
+//    getLifecycle().addObserver(viewModel);
+//    viewModel.getAnimals().observe(this, (animals) -> {
+//      ArrayAdapter<Animal> adapter = new ArrayAdapter<>(MainActivity.this,
+//          R.layout.item_animal_spinner, animals);
+//      adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//      binding.animalSelector.setAdapter(adapter);
+//    });
+//    viewModel.getThrowable().observe(this, throwable -> {
+//      if(throwable != null){
+//        //noinspection ConstantConditions
+//        Snackbar
+//          .make(binding.getRoot(), throwable.getMessage(),
+//              BaseTransientBottomBar.LENGTH_INDEFINITE)
+//          .show();
+//      }
+//    });
+//  }
 }
 

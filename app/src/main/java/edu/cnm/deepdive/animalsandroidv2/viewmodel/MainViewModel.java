@@ -11,7 +11,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 import edu.cnm.deepdive.animalsandroidv2.model.Animal;
 import edu.cnm.deepdive.animalsandroidv2.service.AnimalRepository;
+import io.reactivex.functions.Consumer;
 import io.reactivex.disposables.CompositeDisposable;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +53,12 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
         repository
             .getAll()
             .subscribe(
-                animals::postValue,
+                new Consumer<List<Animal>>() {
+                  @Override
+                  public void accept(List<Animal> value) throws Exception {
+                    MainViewModel.this.animals.postValue(value);
+                  }
+                },
                 this::postThrowable
             )
     );
@@ -62,7 +69,12 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     pending.add(
         repository.getAnimal(id)
             .subscribe(
-                animal::postValue,
+                new Consumer<Animal>() {
+                  @Override
+                  public void accept(Animal value) throws Exception {
+                    animal.postValue(value);
+                  }
+                },
                 this::postThrowable
             )
     );
