@@ -9,6 +9,14 @@
   android:background="@color/black"
   tools:context=".controller.MainActivity">
 
+  <Spinner
+    android:id="@+id/animal_selector"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
   <ImageView
     android:id="@+id/image"
     android:layout_width="0dp"
@@ -16,17 +24,10 @@
     android:scaleType="fitCenter"
     android:adjustViewBounds="true"
     android:layout_margin="@dimen/half_static_spacing"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/animal_selector"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
-
-  <Spinner
-    android:id="@+id/animal_selector"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_static_spacing"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    android:contentDescription="@string/image_description_placeholder"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
